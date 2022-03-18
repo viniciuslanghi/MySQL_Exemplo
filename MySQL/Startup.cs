@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MySQL
 {
@@ -23,7 +24,7 @@ namespace MySQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Contexto>(a => a.UseMySQL("Server=192.168.0.19;Database=RA;Uid=root;Pwd=;"));
+            services.AddDbContext<Contexto>(a => a.UseMySQL("Server=localhost;Database=0220482112010;Uid=root;Pwd=;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

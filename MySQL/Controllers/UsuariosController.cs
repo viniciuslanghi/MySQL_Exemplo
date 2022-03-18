@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySQL.Entidades;
-
+using System.Linq;
 namespace MySQL.Controllers
 {
     public class UsuariosController : Controller
@@ -13,7 +13,7 @@ namespace MySQL.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            return View( db.USUARIOS.ToList());
         }
 
        
@@ -28,6 +28,8 @@ namespace MySQL.Controllers
         {
             try
             {
+                db.USUARIOS.Add(collection);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
@@ -39,7 +41,7 @@ namespace MySQL.Controllers
        
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(db.USUARIOS.Where(a => a.Id == id).FirstOrDefault());
         }
 
       
@@ -48,6 +50,8 @@ namespace MySQL.Controllers
         {
             try
             {
+                db.USUARIOS.Update(dadosTela);
+                db.SaveChanges();
                 return RedirectToAction("index");
             }
             catch
@@ -59,7 +63,9 @@ namespace MySQL.Controllers
         // GET: UsuariosController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            db.USUARIOS.Remove(db.USUARIOS.Where(a => a.Id == id).FirstOrDefault());
+            db.SaveChanges();
+            return RedirectToAction("index");
         }
 
       
